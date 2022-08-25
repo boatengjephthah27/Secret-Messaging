@@ -9,7 +9,12 @@ from tkinter import *
 # ***************************************** CONSTANTS ****************************************************
 
 color = "#F9F9F9"
-
+letters = [
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+    "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+    "u", "v", "w", "x", "y", "z"] 
+    
+numbers = ['0','1','2','3','4','5','6','7','8','9']
 
 
 
@@ -17,6 +22,54 @@ color = "#F9F9F9"
 
 
 # ***************************************** FUNCTIONS ****************************************************
+
+
+
+
+def encrypt(msg_, shift):
+    encrypt_text = ""
+    for char in msg_:
+        if char in letters:
+            post_now = letters.index(char)
+            new_post = int(post_now + shift)
+            if new_post > len(letters):
+                new_post -= len(letters)
+            new_msg = letters[new_post]
+            encrypt_text += new_msg
+        elif char in numbers:
+            post_now = numbers.index(char)
+            new_post = int(post_now + shift)
+            if new_post > len(numbers):
+                new_post -= len(numbers)
+            new_msg = numbers[new_post]
+            encrypt_text += new_msg
+        else:
+            encrypt_text += char
+
+   
+
+def decrypt(msg_, shift):
+    decrypt_text = ""
+    for char in msg_:
+        if char in letters:
+            post_now = letters.index(char)
+            new_post = int(post_now - shift)
+            if new_post < 0:
+                new_post += len(letters)
+            new_msg = letters[new_post]
+            decrypt_text += new_msg
+        elif char in numbers:
+            post_now = numbers.index(char)
+            new_post = int(post_now - shift)
+            if new_post < 0:
+                new_post += len(numbers)
+            new_msg = numbers[new_post]
+            decrypt_text += new_msg
+        else:
+            decrypt_text += char
+
+   
+
 
 
 
