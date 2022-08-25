@@ -1,7 +1,5 @@
-from curses.textpad import Textbox
-from email.mime import image
 from tkinter import *
-
+import random as ran
 
 
 
@@ -20,13 +18,14 @@ numbers = ['0','1','2','3','4','5','6','7','8','9']
 
 
 
-
 # ***************************************** FUNCTIONS ****************************************************
 
 
 
 
-def encrypt(msg_, shift):
+def encryptMsg():
+    shift = ran.choice(range(10))
+    msg_ = msgin.get("1.0", END)
     encrypt_text = ""
     for char in msg_:
         if char in letters:
@@ -45,10 +44,13 @@ def encrypt(msg_, shift):
             encrypt_text += new_msg
         else:
             encrypt_text += char
-
+    
+    msgout.insert("1.0",encrypt_text)
    
 
-def decrypt(msg_, shift):
+def decryptMsg():
+    msg_ = msgin.get("1.0", END)
+    shift = msg_[-2]
     decrypt_text = ""
     for char in msg_:
         if char in letters:
@@ -68,7 +70,7 @@ def decrypt(msg_, shift):
         else:
             decrypt_text += char
 
-   
+    msgout.insert("1.0",decrypt_text)
 
 
 
@@ -142,7 +144,7 @@ encode = Button(
     font=("courier", 20, "bold"),
     padx=4,
     pady=7,
-    command=
+    command=encryptMsg
 )
 encode.grid(row=5, column=0)
 
@@ -151,7 +153,7 @@ decode = Button(
     font=("courier", 20, "bold"),
     padx=4,
     pady=7,
-    command=
+    command=decryptMsg
 )
 decode.grid(row=5, column=1)
 
