@@ -24,10 +24,13 @@ numbers = ['0','1','2','3','4','5','6','7','8','9']
 
 
 def encryptMsg():
-    shift = ran.choice(range(10))
+    msgout.delete("1.0", END)
+    shift = ran.choice(range(1,10))
     msg_ = msgin.get("1.0", END)
     encrypt_text = ""
+    print(shift)
     for char in msg_:
+        
         if char in letters:
             post_now = letters.index(char)
             new_post = int(post_now + shift)
@@ -35,6 +38,7 @@ def encryptMsg():
                 new_post -= len(letters)
             new_msg = letters[new_post]
             encrypt_text += new_msg
+            
         elif char in numbers:
             post_now = numbers.index(char)
             new_post = int(post_now + shift)
@@ -42,17 +46,23 @@ def encryptMsg():
                 new_post -= len(numbers)
             new_msg = numbers[new_post]
             encrypt_text += new_msg
+            
         else:
             encrypt_text += char
+            
+    encrypt_text = encrypt_text[:4] + str(shift) + encrypt_text[4:]
     
     msgout.insert("1.0",encrypt_text)
    
 
 def decryptMsg():
+    msgout.delete("1.0", END)
     msg_ = msgin.get("1.0", END)
-    shift = msg_[-2]
+    shift = int(msg_[4])
     decrypt_text = ""
+    
     for char in msg_:
+        
         if char in letters:
             post_now = letters.index(char)
             new_post = int(post_now - shift)
@@ -60,6 +70,7 @@ def decryptMsg():
                 new_post += len(letters)
             new_msg = letters[new_post]
             decrypt_text += new_msg
+            
         elif char in numbers:
             post_now = numbers.index(char)
             new_post = int(post_now - shift)
@@ -67,9 +78,12 @@ def decryptMsg():
                 new_post += len(numbers)
             new_msg = numbers[new_post]
             decrypt_text += new_msg
+            
         else:
             decrypt_text += char
 
+    decrypt_text = decrypt_text[:4] + decrypt_text[5:]
+    
     msgout.insert("1.0",decrypt_text)
 
 
@@ -78,10 +92,12 @@ def decryptMsg():
 
 
 
-
-
-
 # ***************************************** GUI ****************************************************
+
+
+
+
+
 
 app = Tk()
 app.title("Secret Message")
@@ -118,7 +134,9 @@ msglbl.grid(row=1, column=0, columnspan=2)
 msgin = Text(
     width=50,
     height=7,
-    font=("courier", 16)
+    font=("courier", 16),
+    padx=5,
+    pady=5
 )
 msgin.grid(row=2, column=0, columnspan=2)
 
@@ -134,7 +152,9 @@ outputlbl.grid(row=3, column=0, columnspan=2)
 msgout = Text(
     width=50,
     height=7,
-    font=("courier", 16)
+    font=("courier", 16),
+    padx=5,
+    pady=5
 )
 msgout.grid(row=4, column=0, columnspan=2)
 
